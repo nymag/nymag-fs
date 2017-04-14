@@ -1,0 +1,26 @@
+{
+  "name": "nymag-fs",
+  "version": "0.0.1",
+  "description": "A module for working with the filesystem in Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nymag/nymag-fs.git"
+  },
+  "keywords": [
+    "fs"
+  ],
+  "author": "New York Media",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nymag/nymag-fs/issues"
+  },
+  "homepage": "https://github.com/nymag/nymag-fs#readme",
+  "dependencies": {
+    "js-yaml": "^3.8.3",
+    "lodash": "^4.17.4"
+  }
+}
