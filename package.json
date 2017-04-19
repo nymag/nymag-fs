@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && npm run test-suite",
     "test-suite": "istanbul cover _mocha",
-    "lint": "eslint test index.js"
+    "lint": "eslint test index.js control.js"
   },
   "repository": {
     "type": "git",
