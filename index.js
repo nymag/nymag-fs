@@ -13,6 +13,8 @@ const fs = require('fs'),
   yaml = require('js-yaml'),
   control = require('./control');
 
+var req = require;
+
 /**
  * @param {string} filename
  * @returns {string}
@@ -93,14 +95,13 @@ function getFolders(dir) {
  * @throw if fails for reason other than missing module
  */
 function tryRequire(filePath) {
-  let resolvedPath;
+  let resolvedPath = req.resolve(filePath);
 
-  try {
-    resolvedPath = req.resolve(filePath);
-  } catch (ex) {
-    return undefined;
+  if (resolvedPath) {
+    return req(resolvedPath);
   }
-  return req(resolvedPath);
+
+  return undefined;
 }
 
 /**
@@ -159,8 +160,8 @@ module.exports.getFolders = control.memoize(getFolders);
 module.exports.fileExists = control.memoize(fileExists);
 module.exports.isDirectory = control.memoize(isDirectory);
 module.exports.tryRequire = control.memoize(tryRequire);
-module.exports.readFilePromise = control.memoize(readFilePromise);
 module.exports.tryRequireEach = tryRequireEach;
+module.exports.readFilePromise = control.memoize(readFilePromise);
 
 // for testing
 module.exports.setRequire = setRequire;

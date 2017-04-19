@@ -5,46 +5,6 @@ const _ = require('lodash'),
   log = console.log, // Figure out logging
   minute = 60000;
 
-/**
- * @param {*} obj
- * @returns {boolean}
- */
-function isFreezable(obj) {
-  const type = typeof obj;
-
-  // NOTE: leave functions allow, despite object-like behavior.  We need them for stubs.
-  return type === 'object' && obj !== null && Object.isFrozen && !Object.isFrozen(obj);
-}
-
-/**
- * Set object to read-only (in-place)
- *
- * @param {*} obj
- * @returns {*}
- */
-function setReadOnly(obj) {
-  if (isFreezable(obj)) {
-    _.forOwn(obj, function (value) {
-      if (typeof value === 'object' && value !== null) {
-        setReadOnly(value);
-      }
-    });
-
-    Object.freeze(obj);
-  }
-  return obj;
-}
-
-/**
- * Apply only to properties of thing, first-level of object will remain editable
- * @param {*} obj
- */
-function setDeepObjectTypesReadOnly(obj) {
-  _.each(obj, function (value) {
-    setReadOnly(value);
-  });
-}
-
 function defineReadOnly(definition) {
   if (!definition.get) {
     definition.writable = false;
@@ -70,6 +30,7 @@ function defineWritable(definition) {
  * @param {object} cache
  */
 function reportMemoryLeak(fn, cache) {
+  console.log('HI');
   log('warn', 'memory leak', fn.name, cache);
 }
 
@@ -108,8 +69,8 @@ function getMemoryLeakThreshold() {
   return memoryLeakThreshold;
 }
 
-module.exports.setReadOnly = setReadOnly;
-module.exports.setDeepObjectTypesReadOnly = setDeepObjectTypesReadOnly;
+// module.exports.setReadOnly = setReadOnly;
+// module.exports.setDeepObjectTypesReadOnly = setDeepObjectTypesReadOnly;
 module.exports.defineReadOnly = defineReadOnly;
 module.exports.defineWritable = defineWritable;
 module.exports.memoize = memoize;
