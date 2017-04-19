@@ -1,6 +1,6 @@
 {
   "name": "nymag-fs",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A module for working with the filesystem in Node",
   "main": "index.js",
   "scripts": {
