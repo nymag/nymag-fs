@@ -8,10 +8,10 @@
 
 'use strict';
 
-let _ = require('lodash'),
-  fs = require('fs'),
+const fs = require('fs'),
   path = require('path'),
-  yaml = require('js-yaml');
+  yaml = require('js-yaml'),
+  control = require('./control');
 
 /**
  * @param {string} filename
@@ -124,8 +124,7 @@ function tryRequireEach(paths) {
  * @returns {string}
  */
 function getYaml(filename) {
-  const data = readFile(filename + '.yaml') || readFile(filename + '.yml'),
-    basename = path.basename(filename, path.extname(filename));
+  const data = readFile(filename + '.yaml') || readFile(filename + '.yml');
 
   return yaml.safeLoad(data);
 }
@@ -154,13 +153,14 @@ function readFilePromise(file) {
   });
 }
 
-exports.getYaml = control.memoize(getYaml);
-exports.getFiles = control.memoize(getFiles);
-exports.getFolders = control.memoize(getFolders);
-exports.fileExists = control.memoize(fileExists);
-exports.isDirectory = control.memoize(isDirectory);
-exports.tryRequire = control.memoize(tryRequire);
-exports.readFilePromise = control.memoize(readFilePromise);
+module.exports.getYaml = control.memoize(getYaml);
+module.exports.getFiles = control.memoize(getFiles);
+module.exports.getFolders = control.memoize(getFolders);
+module.exports.fileExists = control.memoize(fileExists);
+module.exports.isDirectory = control.memoize(isDirectory);
+module.exports.tryRequire = control.memoize(tryRequire);
+module.exports.readFilePromise = control.memoize(readFilePromise);
+module.exports.tryRequireEach = tryRequireEach;
 
 // for testing
-exports.setRequire = setRequire;
+module.exports.setRequire = setRequire;
