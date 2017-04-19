@@ -8,8 +8,7 @@ const _ = require('lodash'),
   path = require('path'),
   yaml = require('js-yaml'),
   glob = require('glob'),
-  lib = require('./' + filename),
-  pkg = require('./test/config/package.json');
+  lib = require('./' + filename);
 
 describe(_.startCase(filename), function () {
   let req, sandbox;
@@ -110,9 +109,7 @@ describe(_.startCase(filename), function () {
   });
 
   describe('getYaml', function () {
-    let fn = lib[this.title],
-      myEnvFile = 'myEnvFile',
-      original;
+    let fn = lib[this.title];
 
     it('returns result', function () {
       const filename = 'some-name',

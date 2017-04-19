@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint && istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "test-local": "istanbul cover _mocha",
-    "lint": "eslint test index.js control.js"
+    "lint": "eslint test index.js index.test.js control.js control.test.js"
   },
   "repository": {
     "type": "git",
