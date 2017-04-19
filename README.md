@@ -1,3 +1,3 @@
 # NYMag FS
 
-Description coming soon
+Functions for working with the filesystem.
