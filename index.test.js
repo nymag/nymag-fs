@@ -8,10 +8,11 @@ const _ = require('lodash'),
   path = require('path'),
   yaml = require('js-yaml'),
   glob = require('glob'),
-  lib = require('./' + filename);
+  lib = require('./' + filename),
+  mockery = require('mockery');
 
 describe(_.startCase(filename), function () {
-  let req, sandbox;
+  let sandbox;
 
   function createMockStat(options) {
     return {
@@ -38,15 +39,14 @@ describe(_.startCase(filename), function () {
     lib.tryRequire.cache = new _.memoize.Cache();
     lib.readFilePromise.cache = new _.memoize.Cache();
 
-    // require shouldn't be called dynamically, but here we go
-    req = sandbox.stub();
-    req.resolve = sandbox.stub();
-    lib.setRequire(req);
+    mockery.enable({
+      useCleanCache: true
+    });
   });
 
   afterEach(function () {
     sandbox.restore();
-    lib.setRequire(require);
+    mockery.deregisterAll();
   });
 
   describe('fileExists', function () {
@@ -185,14 +185,13 @@ describe(_.startCase(filename), function () {
     const fn = lib[this.title];
 
     it('returns a module if one exists', function () {
-      req.resolve.withArgs('.').returns('/path/to/file');
-      req.returns({});
+      mockery.registerMock('.', {});
 
       expect(fn('.')).to.deep.equal({});
     });
 
     it('returns undefined in no file exists', function () {
-      req.resolve.withArgs('.').returns(undefined);
+      mockery.registerMock('.', undefined);
 
       expect(fn('.')).to.be.undefined;
     });
